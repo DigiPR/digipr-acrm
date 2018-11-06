@@ -25,7 +25,3 @@
 /.nb-gradle/
 
 *-dev.yml
-export/
-*.vpp.bak*
-*.vpp.vbak
-/data/

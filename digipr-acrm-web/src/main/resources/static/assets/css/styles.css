@@ -1,0 +1,29 @@
+.btn-group {
+  white-space: nowrap;
+}
+
+.btn-group > .btn {
+  float: none;
+  display: inline-block;
+  margin-right: -2px;
+}
+
+.page-header {
+  padding-bottom: 9.5px;
+  margin: 42px 0 21px;
+  border-bottom: 1px solid transparent;
+}
+
+h1, .h1, h2, .h2, h3, .h3 {
+  margin-top: 21px;
+  margin-bottom: 10.5px;
+}
+
+h2, .h2 {
+  font-size: 32px;
+}
+
+h3, .h3 {
+  font-size: 26px;
+}
+
