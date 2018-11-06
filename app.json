@@ -2,7 +2,6 @@
   "name": "acrm",
   "description": "Minimal Agency Customer Relationship Management Demo APP",
   "website": "https://andreasmartin.ch",
-  "addons": [ "heroku-postgresql" ],
   "env": {
     "TOKEN_SECRET": {
       "description": "A secret key for verifying the integrity of JWT.",
@@ -16,5 +15,6 @@
       "description": "Define the default deployment of the multi module project.",
       "value": "-pl digipr-acrm-web"
     }
-  }
+  },
+  "addons": [ "heroku-postgresql" ]
 }
