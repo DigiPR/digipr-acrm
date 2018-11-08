@@ -9,6 +9,7 @@
 | --- | 
 | **Core Spring Boot Bootstrapping**<br><br>[digipr-acrm-core](digipr-acrm-core) example illustrates how Spring Boot can be used to develop a microservice.<br><br>✔ Application Bootstrapping<br>✔ Microservice Application<br>✔ Spring Boot Testing | 
 | **Spring Boot Data Example**<br><br>[digipr-acrm-data](digipr-acrm-data) example illustrates how JPA can be used with the help of Spring Boot Data JPA including H2.<br><br>✔ Data Access / Persistence Layer<br>✔ Domain Objects / Entities<br>✔ Repositories |
+| **Spring Boot API Example**<br><br>[digipr-acrm-api](digipr-acrm-api) example illustrates how business logic and an REST JPA can be implemented with the help of Spring (Boot) MVC.<br><br>✔ Business Layer<br>✔ Service Layer / API |
 
 #### Sub-Module Heroku Deployment
 
