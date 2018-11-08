@@ -29,3 +29,4 @@ export/
 *.vpp.bak*
 *.vpp.vbak
 /data/
+*.vpp.lck
