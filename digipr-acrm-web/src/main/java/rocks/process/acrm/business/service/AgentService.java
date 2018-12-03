@@ -7,7 +7,7 @@ package rocks.process.acrm.business.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 import rocks.process.acrm.data.domain.Agent;
@@ -25,7 +25,7 @@ public class AgentService {
     @Autowired
     Validator validator;
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     public void saveAgent(@Valid Agent agent) throws Exception {
         if (agent.getId() == null) {
@@ -35,7 +35,7 @@ public class AgentService {
         } else if (agentRepository.findByEmailAndIdNot(agent.getEmail(), agent.getId()) != null) {
             throw new Exception("Email address " + agent.getEmail() + " already assigned another agent.");
         }
-        agent.setPassword(bCryptPasswordEncoder.encode(agent.getPassword()));
+        agent.setPassword(passwordEncoder.encode(agent.getPassword()));
         agentRepository.save(agent);
     }
 

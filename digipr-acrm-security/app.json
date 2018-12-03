@@ -1,5 +1,0 @@
-{
-  "name": "acrm",
-  "description": "FHNW Demo App",
-  "addons": [ "heroku-postgresql" ]
-}
