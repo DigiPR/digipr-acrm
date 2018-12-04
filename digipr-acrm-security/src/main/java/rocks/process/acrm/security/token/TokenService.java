@@ -6,6 +6,7 @@
 package rocks.process.acrm.security.token;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +36,9 @@ public class TokenService {
     public String issueToken(String subject, String type, Date expirationTime){
         return Jwts.builder()
                 .setSubject(subject)
-                .claim("type", type)
                 .setExpiration(expirationTime)
                 .signWith(SIGNATURE_ALGORITHM, signingKey)
+                .setHeaderParam("typ", type)
                 .compact();
     }
 
@@ -46,17 +47,16 @@ public class TokenService {
             return null;
         }
 
-        Claims claims = Jwts.parser()
+        Jws<Claims> claims = Jwts.parser()
                 .setSigningKey(signingKey)
-                .parseClaimsJws(token)
-                .getBody();
+                .parseClaimsJws(token);
 
         if(claims!=null){
-            if (type!=null && !((String) claims.get("type")).equals(type))
+            if (type!=null && !((String) claims.getHeader().get("typ")).equals(type))
             {
                 return null;
             }
-            String username = claims.getSubject();
+            String username = claims.getBody().getSubject();
             if(this.userDetailsService.loadUserByUsername(username)!=null){
                 return username;
             }
