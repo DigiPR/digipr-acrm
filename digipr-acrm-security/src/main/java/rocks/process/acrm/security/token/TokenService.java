@@ -38,6 +38,7 @@ public class TokenService {
                 .claim("type", type)
                 .setExpiration(expirationTime)
                 .signWith(SIGNATURE_ALGORITHM, signingKey)
+                .setHeaderParam("typ", "JWT")
                 .compact();
     }
 
