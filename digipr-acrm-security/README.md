@@ -133,7 +133,7 @@ As mentioned at the beginning, this example is extension to the  [digipr-acrm-ap
 
 Once the application has been started, you can test the API by using the following Postman collection:
 
-[![Import in Postman](https://img.shields.io/badge/Import%20in-Postman-F47023.svg?longCache=true)](https://www.getpostman.com/collections/b4e64019eea8d78d60cc)
+[![Import in Postman](https://img.shields.io/badge/Import%20in-Postman-F47023.svg?longCache=true)](https://app.getpostman.com/run-collection/b4e64019eea8d78d60cc)
 
 ## User Registration
 
