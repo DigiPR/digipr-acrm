@@ -88,11 +88,11 @@ public class AgentService {
 
     @Autowired
     private AgentRepository agentRepository;
-	// ...
+    // ...
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-	//...
+    //...
 
     public Agent getCurrentAgent() {
         String userEmail = "demo@demo.ch";
@@ -133,7 +133,7 @@ As mentioned at the beginning, this example is extension to the  [digipr-acrm-ap
 
 Once the application has been started, you can test the API by using the following Postman collection:
 
-[![Import in Postman](https://img.shields.io/badge/Import%20in-Postman-F47023.svg?longCache=true)](https://app.getpostman.com/run-collection/a8e9875ff3baa96198db)
+[![Import in Postman](https://img.shields.io/badge/Import%20in-Postman-F47023.svg?longCache=true)](https://www.getpostman.com/collections/b4e64019eea8d78d60cc)
 
 ## User Registration
 
