@@ -88,8 +88,7 @@ public class AgentService {
 
     @Autowired
     private AgentRepository agentRepository;
-	@Autowired
-    Validator validator;
+	// ...
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -226,10 +225,7 @@ curl --request POST \
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    // ...
     @Autowired
     private TokenService tokenService;
 
@@ -244,10 +240,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .addFilter(new TokenAuthenticationFilter(authenticationManager(), this.tokenService));
     }
 
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
-    }
+    // ...
 }
 ```
 
@@ -258,8 +251,7 @@ public class AgentService {
 
     @Autowired
     private AgentRepository agentRepository;
-    @Autowired
-    Validator validator;
+    // ...
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -284,10 +276,7 @@ curl --request HEAD \
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    // ...
     @Autowired
     private TokenService tokenService;
 
@@ -306,10 +295,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .addLogoutHandler(new TokenLogoutHandler(this.tokenService));
     }
 
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
-    }
+    // ...
 }
 ```
 
@@ -319,10 +305,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    // ...
     @Autowired
     private TokenService tokenService;
 
@@ -343,10 +326,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .addLogoutHandler(new TokenLogoutHandler(this.tokenService));
     }
 
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
-    }
+    // ...
 }
 ```
 
@@ -356,10 +336,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    // ...
     @Autowired
     private TokenService tokenService;
 
@@ -382,9 +359,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .addLogoutHandler(new TokenLogoutHandler(this.tokenService));
     }
 
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
-    }
+    // ...
 }
 ```
