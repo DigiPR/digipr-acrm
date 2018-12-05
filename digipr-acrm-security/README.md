@@ -14,7 +14,7 @@ This example illustrates how Spring Security can be used to implement a JWT-base
 - [User Authentication](#user-authentication)
 - [User Logout](#user-logout)
 - [CSRF](#csrf)
-- [HTTPS and Disable Session](#https-and-disable-session)
+- [XSS, HTTPS and Disable Session](#xss-https-and-disable-session)
 
 ## Prerequisite and Use Case
 
@@ -330,7 +330,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 }
 ```
 
-## HTTPS and Disable Session
+## XSS, HTTPS and Disable Session
+
+```Java
+@Entity
+public class Customer {
+
+	@Id
+	@GeneratedValue
+	private Long id;
+	@SafeHtml
+	private String name;
+	@SafeHtml
+	private String email;
+	@SafeHtml
+	private String mobile;
+	// ...
+}
+```
 
 ```Java
 @EnableWebSecurity

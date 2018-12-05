@@ -1,6 +1,7 @@
 package rocks.process.acrm.data.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.validator.constraints.SafeHtml;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,10 +16,13 @@ public class Customer {
 	@Id
 	@GeneratedValue
 	private Long id;
+	@SafeHtml
 	private String name;
 	@Email(message = "Please provide a valid e-mail.")
 	@NotEmpty(message = "Please provide an e-mail.")
+	@SafeHtml
 	private String email;
+	@SafeHtml
 	private String mobile;
 	@ManyToOne
 	@JsonBackReference
