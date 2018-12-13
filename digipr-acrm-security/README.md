@@ -10,9 +10,10 @@ This example illustrates how Spring Security can be used to implement a JWT-base
 - [Initial Web Security Configuration](#initial-web-security-configuration)
 - [Service Layer / API](#service-layer--api)
 - [User Registration](#user-registration)
-- [User Login](#user-login)
-- [User Authentication](#user-authentication)
-- [User Logout](#user-logout)
+- [User Authentication Phases](#user-authentication-phases)
+    - [User Login](#user-login)
+    - [User Authentication](#user-authentication)
+    - [User Logout](#user-logout)
 - [CSRF](#csrf)
 - [XSS, HTTPS and Disable Session](#xss-https-and-disable-session)
 
@@ -137,6 +138,8 @@ Once the application has been started, you can test the API by using the followi
 
 ## User Registration
 
+The user registration has been realized in a corresponding `UserController` as part of Spring MVC using REST methods: 
+
 ```Java
 @Controller
 public class UserController {
@@ -161,6 +164,8 @@ public class UserController {
 }
 ``` 
 
+Next we need to enable the path to the user registration that it can be used:
+
 ```Java
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -175,6 +180,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 }
 ```
 
+You can try out the registration by using the following `curl` (in e.g. Postman):
+
 ```bash
 curl --request POST \
   --url http://localhost:8080/user/register \
@@ -182,7 +189,13 @@ curl --request POST \
   --data '{\n    "name": "Admin",\n    "email": "admin@example.com",\n    "password": "password"\n}'
 ```
 
-## User Login
+## User Authentication Phases
+
+The use authentication has been implemented using JSON Web Tokens (JWT). It has been implemented using the [Java JWT (jjwt)](https://github.com/jwtk/jjwt) library and its corresponding guidelines.
+
+The verification and issuing procedures are implemented in the `rocks.process.acrm.security-token` package based on [Java JWT (jjwt)](https://github.com/jwtk/jjwt). Besides, the package contains a JPA-based repository for making tokens invalid.
+
+### User Login
 
 ```Java
 @EnableWebSecurity
@@ -219,7 +232,7 @@ curl --request POST \
   --data '{\n    "email": "admin@example.com",\n    "password": "password",\n    "remember": "false"\n}'
 ```
 
-## User Authentication
+### User Authentication
 
 ```Java
 @EnableWebSecurity
@@ -270,7 +283,7 @@ curl --request HEAD \
   --header 'Authorization: Bearer <<your token>>'
 ```
 
-## User Logout
+### User Logout
 
 ```Java
 @EnableWebSecurity
