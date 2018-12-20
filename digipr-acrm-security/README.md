@@ -11,9 +11,9 @@ This example illustrates how Spring Security can be used to implement a JWT-base
 - [Service Layer / API](#service-layer--api)
 - [User Registration](#user-registration)
 - [User Authentication Phases](#user-authentication-phases)
-    - [User Login](#user-login)
-    - [User Authentication](#user-authentication)
-    - [User Logout](#user-logout)
+  - [User Login](#user-login)
+  - [User Authentication](#user-authentication)
+  - [User Logout](#user-logout)
 - [CSRF](#csrf)
 - [XSS, HTTPS and Disable Session](#xss-https-and-disable-session)
 
