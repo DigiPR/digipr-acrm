@@ -32,9 +32,15 @@ The project can be bootstrapped using the [Spring Initializr](https://start.spri
 
 Besides, in the [Spring Initializr](https://start.spring.io) select `Spring Security`, `Spring Web`, `JPA` and the `H2` support. Then generate and import the project into your favourite IDE.
 
-Finally, add the following JWT specific Maven dependencies to your `pom.xml`:
+Finally, add the following Java HTML Parser and JWT specific Maven dependencies to your `pom.xml`:
 
 ```XML
+<dependency>
+    <groupId>org.jsoup</groupId>
+    <artifactId>jsoup</artifactId>
+    <version>1.11.3</version>
+</dependency>
+
 <dependency>
 	<groupId>io.jsonwebtoken</groupId>
 	<artifactId>jjwt</artifactId>
