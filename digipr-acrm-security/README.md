@@ -15,7 +15,7 @@ This example illustrates how Spring Security can be used to implement a JWT-base
   - [User Authentication](#user-authentication)
   - [User Logout](#user-logout)
 - [CSRF](#csrf)
-- [XSS, HTTPS and Disable Session](#xss-https-and-disable-session)
+- [XSS and HTTPS](#xss-and-https)
 
 ## Prerequisite and Use Case
 
@@ -121,6 +121,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER).and()
             .csrf().disable()
             .authorizeRequests()
                 .antMatchers("/**").permitAll();
@@ -173,6 +174,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER).and()
             .csrf().disable()
             .authorizeRequests()
                 .antMatchers("/", "/assets/**", "/user/**", "/login/**").permitAll();
@@ -211,6 +213,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER).and()
             .csrf().disable()
             .authorizeRequests()
                 .antMatchers("/", "/assets/**", "/user/**", "/login/**").permitAll()
@@ -245,6 +248,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER).and()
             .csrf().disable()
             .authorizeRequests()
                 .antMatchers("/", "/assets/**", "/user/**", "/login/**").permitAll()
@@ -296,6 +300,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER).and()
             .csrf().disable()
             .authorizeRequests()
                 .antMatchers("/", "/assets/**", "/user/**", "/login/**").permitAll()
@@ -325,6 +330,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER).and()
              .csrf()
                 .requireCsrfProtectionMatcher(new CSRFRequestMatcher())
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
@@ -343,7 +349,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 }
 ```
 
-## XSS, HTTPS and Disable Session
+## XSS and HTTPS
 
 ```Java
 @Entity
