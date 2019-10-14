@@ -19,18 +19,13 @@ This example illustrates how Spring Security can be used to implement a JWT-base
 
 ## Prerequisite and Use Case
 
-> Please note, this example is extension to the [digipr-acrm-data](./digipr-acrm-data) and the [digipr-acrm-api](./digipr-acrm-api) examples.
+> Please note, this example is extension to the [digipr-acrm-data](https://github.com/DigiPR/digipr-acrm/tree/master/digipr-acrm-data) and the [digipr-acrm-api](https://github.com/DigiPR/digipr-acrm/tree/master/digipr-acrm-api) examples.
 
 ## Application Bootstrapping
 
-The project can be bootstrapped using the [Spring Initializr](https://start.spring.io) using the following group and artefact ids:
+Please use the Spring Initializr to bootstrap the application with [this shared configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.1.9.RELEASE&packaging=jar&jvmVersion=1.8&groupId=rocks.process.acrm&artifactId=digipr-acrm-security&name=digipr-acrm-security&description=Demo%20project%20for%20Spring%20Boot&packageName=rocks.process.acrm&dependencies=data-jpa,web,security,h2,postgresql).
 
-```XML
-<groupId>rocks.process.acrm</groupId>
-<artifactId>digipr-acrm-security</artifactId>
-```
-
-Besides, in the [Spring Initializr](https://start.spring.io) select `Spring Security`, `Spring Web`, `JPA` and the `H2` support. Then generate and import the project into your favourite IDE.
+Then generate and import the project into your favourite IDE.
 
 Finally, add the following Java HTML Parser and JWT specific Maven dependencies to your `pom.xml`:
 
@@ -38,7 +33,7 @@ Finally, add the following Java HTML Parser and JWT specific Maven dependencies 
 <dependency>
     <groupId>org.jsoup</groupId>
     <artifactId>jsoup</artifactId>
-    <version>1.11.3</version>
+    <version>1.12.1</version>
 </dependency>
 
 <dependency>

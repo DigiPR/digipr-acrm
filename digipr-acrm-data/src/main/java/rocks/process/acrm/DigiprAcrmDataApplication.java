@@ -32,6 +32,7 @@ public class DigiprAcrmDataApplication {
 		Customer customer = new Customer();
 		customer.setName("Lisa Meyer");
 		customer.setMobile("+41794567896");
+		customer.setEmail("lisa@meyer.ch");
 		customer.setAgent(agent);
 		customerService.editCustomer(customer);
 	}

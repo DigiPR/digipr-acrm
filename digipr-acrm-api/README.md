@@ -11,34 +11,11 @@ This example illustrates how business logic and an REST JPA can be implemented w
 
 ## Prerequisite and Use Case
 
-> Please note, this example is extension to the [digipr-acrm-data](./digipr-acrm-data) example.
+> Please note, this example is extension to the [digipr-acrm-data](https://github.com/DigiPR/digipr-acrm/tree/master/digipr-acrm-data) example.
 
 ## Application Bootstrapping
 
-The project can be bootstrapped using the [Spring Initializr](https://start.spring.io) using the following group and artefact ids:
-
-```XML
-<groupId>rocks.process.acrm</groupId>
-<artifactId>digipr-acrm-api</artifactId>
-```
-
-Besides, in the [Spring Initializr](https://start.spring.io) select `Spring Web`, `JPA` and the `H2` support - in the following you can find the Maven dependencies if Spring Initializr is not used:
-
-```XML
-<dependency>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-starter-data-jpa</artifactId>
-</dependency>
-<dependency>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-starter-web</artifactId>
-</dependency>
-<dependency>
-	<groupId>com.h2database</groupId>
-	<artifactId>h2</artifactId>
-	<scope>runtime</scope>
-</dependency>
-```
+Please use the Spring Initializr to bootstrap the application with [this shared configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.1.9.RELEASE&packaging=jar&jvmVersion=1.8&groupId=rocks.process.acrm&artifactId=digipr-acrm-api&name=digipr-acrm-api&description=Demo%20project%20for%20Spring%20Boot&packageName=rocks.process.acrm&dependencies=data-jpa,web,h2).
 
 Finally, generate and import the project into your favourite IDE.
 

@@ -33,9 +33,7 @@ This exemplary application is relying on [Spring Boot](https://projects.spring.i
 - [Java Persistence API (JPA)](http://www.oracle.com/technetwork/java/javaee/tech/persistence-jsp-140049.html)
 - [H2 Database Engine](https://www.h2database.com)
 
-Please use the Spring Initializr to bootstrap the application on https://start.spring.io based on the following depicted configuration:
-
-![](images/2018-09-22_23h37_58.png)
+Please use the Spring Initializr to bootstrap the application with [this shared configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.1.9.RELEASE&packaging=jar&jvmVersion=1.8&groupId=rocks.process.acrm&artifactId=digipr-acrm-data&name=digipr-acrm-data&description=Demo%20project%20for%20Spring%20Boot&packageName=rocks.process.acrm&dependencies=data-jpa,web,h2).
 
 Download the ZIP-file and extract it somewhere. Then import the project into your favourite Java/Maven IDE such as IntelliJ, NetBeans or Eclipse.
 
