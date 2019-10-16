@@ -10,6 +10,7 @@
 | **Core Spring Boot Bootstrapping**<br><br>[digipr-acrm-core](digipr-acrm-core) example illustrates how Spring Boot can be used to develop a microservice.<br><br>✔ Application Bootstrapping<br>✔ Microservice Application<br>✔ Spring Boot Testing | 
 | **Spring Boot Data Example**<br><br>[digipr-acrm-data](digipr-acrm-data) example illustrates how JPA can be used with the help of Spring Boot Data JPA including H2.<br><br>✔ Data Access / Persistence Layer<br>✔ Domain Objects / Entities<br>✔ Repositories |
 | **Spring Boot API Example**<br><br>[digipr-acrm-api](digipr-acrm-api) example illustrates how business logic and an REST JPA can be implemented with the help of Spring (Boot) MVC.<br><br>✔ Business Layer<br>✔ Service Layer / API |
+| **Spring Boot API Documentation Example**<br><br>[digipr-acrm-api-doc](digipr-acrm-api) example illustrates how an API can be implemented and documented with Swagger/OpenAPI.<br><br>✔ Swagger API<br>✔ Swagger UI <br>✔ Microservice Documentation |
 | **Spring Security and JWT Example**<br><br>[digipr-acrm-security](digipr-acrm-security) example illustrates how Spring Security can be used to implement a JWT-based authentication.<br><br>✔ Spring Security<br>✔ JSON Web Token (JWT) |
 | **Spring MVC and jQuery Example**<br><br>[digipr-acrm-web](digipr-acrm-web)  example illustrates how Spring MVC can be used in combination with jQuery to implement a web application.<br><br>✔ Spring MVC<br>✔ jQuery (JWT)<br>✔ Bootstrap|
 
