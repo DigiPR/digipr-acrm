@@ -17,7 +17,7 @@ This exemplary application is relying on [Spring Boot](https://projects.spring.i
 - [Spring Boot](https://projects.spring.io/spring-boot)
 - [Spring Web](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html)
 
-Please use the Spring Initializr to bootstrap the application with [this shared configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.1.9.RELEASE&packaging=jar&jvmVersion=1.8&groupId=rocks.process.acrm&artifactId=digipr-acrm-core&name=digipr-acrm-core&description=Demo%20project%20for%20Spring%20Boot&packageName=rocks.process.acrm&dependencies=web).
+Please use the Spring Initializr to bootstrap the application with [this shared configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.2.0.RELEASE&packaging=jar&jvmVersion=1.8&groupId=rocks.process.acrm&artifactId=digipr-acrm-core&name=digipr-acrm-core&description=demo%20project%20for%20spring%20boot&packageName=rocks.process.acrm&dependencies=web).
 
 Download the ZIP-file and extract it somewhere. Then import the project into your favourite Java/Maven IDE such as IntelliJ, NetBeans or Eclipse.
 
@@ -85,15 +85,14 @@ public class TestComponent {
 Write a `@SpringBootTest` as follows:
 
 ```Java
-@RunWith(SpringRunner.class)
 @SpringBootTest
-public class DigiprAcrmCoreApplicationTests {
+class DigiprAcrmCoreApplicationTests {
 
 	@Autowired
 	TaskService taskService;
 
 	@Test
-	public void taskServiceTest() {
+	void taskServiceTest() {
 		Task task = new Task();
 		task.setDescription("third task");
 		task = taskService.createTask(task);

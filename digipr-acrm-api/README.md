@@ -15,7 +15,7 @@ This example illustrates how business logic and an REST JPA can be implemented w
 
 ## Application Bootstrapping
 
-Please use the Spring Initializr to bootstrap the application with [this shared configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.1.9.RELEASE&packaging=jar&jvmVersion=1.8&groupId=rocks.process.acrm&artifactId=digipr-acrm-api&name=digipr-acrm-api&description=Demo%20project%20for%20Spring%20Boot&packageName=rocks.process.acrm&dependencies=data-jpa,web,h2).
+Please use the Spring Initializr to bootstrap the application with [this shared configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.2.0.RELEASE&packaging=jar&jvmVersion=1.8&groupId=rocks.process.acrm&artifactId=digipr-acrm-api&name=digipr-acrm-api&description=demo%20project%20for%20spring%20boot&packageName=rocks.process.acrm&dependencies=data-jpa,web,h2).
 
 Finally, generate and import the project into your favourite IDE.
 

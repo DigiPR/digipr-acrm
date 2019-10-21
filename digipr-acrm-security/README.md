@@ -23,7 +23,7 @@ This example illustrates how Spring Security can be used to implement a JWT-base
 
 ## Application Bootstrapping
 
-Please use the Spring Initializr to bootstrap the application with [this shared configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.1.9.RELEASE&packaging=jar&jvmVersion=1.8&groupId=rocks.process.acrm&artifactId=digipr-acrm-security&name=digipr-acrm-security&description=Demo%20project%20for%20Spring%20Boot&packageName=rocks.process.acrm&dependencies=data-jpa,web,security,h2,postgresql).
+Please use the Spring Initializr to bootstrap the application with [this shared configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.2.0.RELEASE&packaging=jar&jvmVersion=1.8&groupId=rocks.process.acrm&artifactId=digipr-acrm-security&name=digipr-acrm-security&description=demo%20project%20for%20spring%20boot&packageName=rocks.process.acrm&dependencies=data-jpa,web,security,h2,postgresql).
 
 Then generate and import the project into your favourite IDE.
 
@@ -35,7 +35,6 @@ Finally, add the following Java HTML Parser and JWT specific Maven dependencies 
     <artifactId>jsoup</artifactId>
     <version>1.12.1</version>
 </dependency>
-
 <dependency>
 	<groupId>io.jsonwebtoken</groupId>
 	<artifactId>jjwt</artifactId>
