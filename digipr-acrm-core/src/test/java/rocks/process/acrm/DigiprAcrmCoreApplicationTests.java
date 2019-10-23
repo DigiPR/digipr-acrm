@@ -3,8 +3,8 @@ package rocks.process.acrm;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import rocks.process.acrm.example.task.Task;
-import rocks.process.acrm.example.task.TaskService;
+import rocks.process.acrm.data.domain.Task;
+import rocks.process.acrm.business.service.TaskService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

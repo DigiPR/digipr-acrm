@@ -1,16 +1,16 @@
 /*
- * Copyright (c) 2018. University of Applied Sciences and Arts Northwestern Switzerland FHNW.
+ * Copyright (c) 2019. University of Applied Sciences and Arts Northwestern Switzerland FHNW.
  * All rights reserved.
  */
 
-package rocks.process.acrm.example;
+package rocks.process.acrm.business;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import rocks.process.acrm.example.task.Task;
-import rocks.process.acrm.example.task.TaskService;
+import rocks.process.acrm.data.domain.Task;
+import rocks.process.acrm.business.service.TaskService;
 
 import javax.annotation.PostConstruct;
 import java.util.List;

@@ -1,11 +1,12 @@
 /*
- * Copyright (c) 2018. University of Applied Sciences and Arts Northwestern Switzerland FHNW.
+ * Copyright (c) 2019. University of Applied Sciences and Arts Northwestern Switzerland FHNW.
  * All rights reserved.
  */
 
-package rocks.process.acrm.example.task;
+package rocks.process.acrm.data.repository;
 
 import org.springframework.stereotype.Repository;
+import rocks.process.acrm.data.domain.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,7 @@ public class TaskRepository {
     }
 
     public List<Task> getTasks() {
-        return new ArrayList<>(this.tasks.values());
+        return new ArrayList<>(tasks.values());
     }
 
     public void delete(Task task){

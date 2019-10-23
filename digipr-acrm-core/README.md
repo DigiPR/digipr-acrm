@@ -5,8 +5,9 @@ This example illustrates how Spring Boot can be used to develop a microservice.
 #### Contents:
 - [Application Bootstrapping](#application-bootstrapping)
 - [Microservice Application](#microservice-application)
-- [Business Layer](#business-layer)
-- [TestComponent](#testcomponent)
+- [Business and Data Layers](#business-and-data-layers)
+  - [In-Memory Repository](#in-memory-repository)
+- [Test Component](#test-component)
 - [Spring Boot Testing](#spring-boot-testing)
 - [Static HTML Files and Controllers](#static-html-files-and-controllers)
 
@@ -30,22 +31,63 @@ server:
   port: 8080
 ```
 
-## Business Layer
+## Business and Data Layers
 
-Create the following three classes in the `rocks.process.acrm.example.task` package as an demonstrating example:
+Create the following three classes in the corresponding packages as a demonstrating example:
 
 ![](images/example.png)
 
-- `Task` can be seen as an value object.
-- `TaskRepository` should be implemented as an in-memory `@Repository` managing `tasks`.
-- `TaskService` should be implemented as a business `@Service`. The `TaskRepository` should be `@Autowired`.
+- `Task`, placed under `rocks.process.acrm.data.domain`, can be seen as a value object and minimal domain model.
+- `TaskRepository`, placed under `rocks.process.acrm.data.repository`, should be implemented as an in-memory `@Repository` managing `tasks`.
+- `TaskService`, placed under `rocks.process.acrm.business.service`, should be implemented as a business `@Service`. The `TaskRepository` should be `@Autowired`.
+
+### In-Memory Repository
+
+Since we do not use a database in this basic example, we develop a minimal in-memory `@Repository` using a `TreeMap`. 
+
+`TreeMap` provides an key/index that is ordered and additionally provides a function `lastKey()` that gives us the possibility to mimic the basic functionality of a repository.
+
+Create a `@Repository` class called `TaskRepository` as follows:
+
+```Java
+package rocks.process.acrm.data.repository;
+//...
+@Repository
+public class TaskRepository {
+    private TreeMap<Long, Task> tasks = new TreeMap<>();
+
+    public Task save(Task task) {
+        long key;
+        if (task.getId() == 0) {
+            if (tasks.isEmpty()) {
+                key = 1;
+            } else {
+                key = tasks.lastKey() + 1;
+            }
+            task.setId(key);
+        } else {
+            key = task.getId();
+        }
+        tasks.put(key, task);
+        return task;
+    }
+
+    public List<Task> getTasks() {
+        return new ArrayList<>(tasks.values());
+    }
+
+    public void delete(Task task){
+        tasks.remove(task.getId());
+    }
+}
+```
 
 ## Test Component
 
 Create a testing `@Component` class called `TestComponent` as follows:
 
 ```Java
-package rocks.process.acrm.example;
+package rocks.process.acrm.business;
 //...
 @Component
 public class TestComponent {
