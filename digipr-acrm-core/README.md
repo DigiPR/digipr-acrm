@@ -45,7 +45,7 @@ Create the following three classes in the corresponding packages as a demonstrat
 
 Since we do not use a database in this basic example, we develop a minimal in-memory `@Repository` using a `TreeMap`. 
 
-`TreeMap` provides an key/index that is ordered and additionally provides a function `lastKey()` that gives us the possibility to mimic the basic functionality of a repository.
+`TreeMap` provides a key/index that is ordered and additionally provides a function `lastKey()` that gives us the possibility to mimic the basic functionality of a repository.
 
 Create a `@Repository` class called `TaskRepository` as follows:
 
