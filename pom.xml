@@ -18,7 +18,6 @@
         <module>digipr-acrm-core</module>
         <module>digipr-acrm-data</module>
         <module>digipr-acrm-api</module>
-        <module>digipr-acrm-api-doc</module>
         <module>digipr-acrm-security</module>
         <module>digipr-acrm-web</module>
     </modules>

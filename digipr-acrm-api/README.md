@@ -1,6 +1,6 @@
 # DigiPR Spring Boot API Example
 
-This example illustrates how business logic and an REST JPA can be implemented with the help of Spring (Boot) MVC.
+This example illustrates how business logic and an API can be implemented with the help of Spring (Boot) MVC, and finally documented with Swagger/OpenAPI.
 
 #### Contents:
 - [Prerequisite and Use Case](#prerequisite-and-use-case)
@@ -8,16 +8,43 @@ This example illustrates how business logic and an REST JPA can be implemented w
 - [Microservice Application](#microservice-application)
 - [Business Layer](#business-layer)
 - [Service Layer / API](#service-layer--api)
+- [Swagger/OpenAPI Documentation](#swaggeropenapi-documentation)
 
 ## Prerequisite and Use Case
 
 > Please note, this example is extension to the [digipr-acrm-data](https://github.com/DigiPR/digipr-acrm/tree/master/digipr-acrm-data) example.
 
+> [This can be used as an example concerning API implementation and documentation](EXAMPLE-README.md).
+
 ## Application Bootstrapping
 
-Please use the Spring Initializr to bootstrap the application with [this shared configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.2.0.RELEASE&packaging=jar&jvmVersion=1.8&groupId=rocks.process.acrm&artifactId=digipr-acrm-api&name=digipr-acrm-api&description=demo%20project%20for%20spring%20boot&packageName=rocks.process.acrm&dependencies=data-jpa,web,h2).
+This exemplary application is relying on [Spring Boot](https://projects.spring.io/spring-boot) and is based on the following:
 
-Finally, generate and import the project into your favourite IDE.
+- [Spring Boot](https://projects.spring.io/spring-boot)
+- [Spring Web](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html)
+- [Spring Data](https://projects.spring.io/spring-data)
+- [Java Persistence API (JPA)](http://www.oracle.com/technetwork/java/javaee/tech/persistence-jsp-140049.html)
+- [H2 Database Engine](https://www.h2database.com)
+- [PostgreSQL](https://www.postgresql.org)
+
+Please use the Spring Initializr to bootstrap the application with [this shared configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.2.0.RELEASE&packaging=jar&jvmVersion=1.8&groupId=rocks.process.acrm&artifactId=digipr-acrm-api&name=digipr-acrm-api-doc&description=demo%20project%20for%20spring%20boot&packageName=rocks.process.acrm&dependencies=data-jpa,web,h2,postgresql).
+
+Then generate and import the project into your favourite IDE.
+
+Finally, add the following Swagger and Swagger UI specific Maven dependencies to your `pom.xml`:
+
+```XML
+<dependency>
+  <groupId>io.springfox</groupId>
+  <artifactId>springfox-swagger2</artifactId>
+  <version>2.9.2</version>
+</dependency>
+<dependency>
+  <groupId>io.springfox</groupId>
+  <artifactId>springfox-swagger-ui</artifactId>
+  <version>2.9.2</version>
+</dependency>
+```
 
 ## Microservice Application
 
@@ -72,3 +99,24 @@ Besides the annotations, the following classes can be used for response, HTTP st
 Implement the following `CustomerEndpoint` in conjunction with the methods described above:
 
 ![](images/api-endpoint.png)
+
+## Swagger/OpenAPI Documentation
+
+Create the `rocks.process.acrm.config` package and implement the following `SwaggerConfig` class:
+
+```Java
+@Configuration
+@EnableSwagger2
+public class SwaggerConfig {
+    @Bean
+    public Docket api() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .select()
+                .apis(RequestHandlerSelectors.any())
+                .paths(Predicates.not(PathSelectors.regex("/error.*")))
+                .build();
+    }
+}
+```
+
+Boot your container and access the Swagger UI using the following URL: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html).

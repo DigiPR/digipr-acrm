@@ -1,12 +1,11 @@
 # DigiPR Spring Boot API Documentation Example
 
-This example illustrates how an API can be implemented and documented with Swagger/OpenAPI.
+This example illustrates how an API can be documented including Swagger/OpenAPI.
 
 #### Contents:
 - [Analysis](#analysis)
   - [Scenario](#scenario)
   - [Use Case](#use-case)
-- [Application Bootstrapping](#application-bootstrapping)
 - [Design](#design)
   - [Endpoint Prototype](#endpoint-prototype)
   - [Data Access / Persistence Layer](#data-access--persistence-layer)
@@ -26,36 +25,6 @@ A-CRM (Agency Customer-Relationship-Management) is the smallest possible and lig
 - UC-2 [Register on A-CRM]: Agents can register to get an account (profile) to access the A-CRM system.
 - UC-3 [Edit a customer]: Agents can create, update and delete customers.
 - UC-4 [Show a customer list]: Agents can get an overview over their customers based on a customer list. As an extension they can create, update and delete customers (UC-3).
-
-## Application Bootstrapping
-
-This exemplary application is relying on [Spring Boot](https://projects.spring.io/spring-boot) and is based on the following:
-
-- [Spring Boot](https://projects.spring.io/spring-boot)
-- [Spring Web](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html)
-- [Spring Data](https://projects.spring.io/spring-data)
-- [Java Persistence API (JPA)](http://www.oracle.com/technetwork/java/javaee/tech/persistence-jsp-140049.html)
-- [H2 Database Engine](https://www.h2database.com)
-- [PostgreSQL](https://www.postgresql.org)
-
-Please use the Spring Initializr to bootstrap the application with [this shared configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.2.0.RELEASE&packaging=jar&jvmVersion=1.8&groupId=rocks.process.acrm&artifactId=digipr-acrm-api-doc&name=digipr-acrm-api-doc&description=demo%20project%20for%20spring%20boot&packageName=rocks.process.acrm&dependencies=data-jpa,web,h2,postgresql).
-
-Then generate and import the project into your favourite IDE.
-
-Finally, add the following Swagger and Swagger UI specific Maven dependencies to your `pom.xml`:
-
-```XML
-<dependency>
-  <groupId>io.springfox</groupId>
-  <artifactId>springfox-swagger2</artifactId>
-  <version>2.9.2</version>
-</dependency>
-<dependency>
-  <groupId>io.springfox</groupId>
-  <artifactId>springfox-swagger-ui</artifactId>
-  <version>2.9.2</version>
-</dependency>
-```
 
 ## Design
 
