@@ -8,6 +8,7 @@ package rocks.process.security.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -29,6 +30,8 @@ public class TokenSecurityConfiguration {
     DataSource dataSource;
     @Autowired
     JpaVendorAdapter vendorAdapter;
+    @Autowired
+    private Environment env;
 
     @Bean
     public TokenService tokenService() {
@@ -53,7 +56,7 @@ public class TokenSecurityConfiguration {
 
     private Properties additionalProperties() {
         Properties properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto", "update");
+        properties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("spring.jpa.hibernate.ddl-auto", "none"));
         return properties;
     }
 }
