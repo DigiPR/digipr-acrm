@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2018. University of Applied Sciences and Arts Northwestern Switzerland FHNW.
+ * Copyright (c) 2019. University of Applied Sciences and Arts Northwestern Switzerland FHNW.
  * All rights reserved.
  */
 
-package rocks.process.acrm.security.user;
+package rocks.process.acrm.business.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;

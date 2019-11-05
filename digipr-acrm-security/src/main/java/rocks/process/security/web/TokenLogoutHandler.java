@@ -1,13 +1,14 @@
 /*
- * Copyright (c) 2018. University of Applied Sciences and Arts Northwestern Switzerland FHNW.
+ * Copyright (c) 2019. University of Applied Sciences and Arts Northwestern Switzerland FHNW.
  * All rights reserved.
  */
 
-package rocks.process.acrm.security;
+package rocks.process.security.web;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
-import rocks.process.acrm.security.token.TokenService;
+import rocks.process.security.service.TokenService;
+import rocks.process.security.config.TokenSecurityProperties;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +28,7 @@ public class TokenLogoutHandler implements LogoutHandler {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : request.getCookies()) {
-                if (cookie.getName().equals(SecurityConstants.COOKIE_NAME)) {
+                if (cookie.getName().equals(TokenSecurityProperties.COOKIE_NAME)) {
                     tokenService.blacklistToken(cookie.getValue());
                 }
                 cookie.setPath(request.getContextPath() + "/");
@@ -37,9 +38,9 @@ public class TokenLogoutHandler implements LogoutHandler {
             }
         }
 
-        String token = request.getHeader(SecurityConstants.HEADER_NAME);
+        String token = request.getHeader(TokenSecurityProperties.HEADER_NAME);
         if (token != null) {
-            token = token.replace(SecurityConstants.BEARER_TOKEN_PREFIX, "");
+            token = token.replace(TokenSecurityProperties.BEARER_TOKEN_PREFIX, "");
             tokenService.blacklistToken(token);
         }
     }

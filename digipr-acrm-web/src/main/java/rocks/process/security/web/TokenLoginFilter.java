@@ -1,17 +1,18 @@
 /*
- * Copyright (c) 2018. University of Applied Sciences and Arts Northwestern Switzerland FHNW.
+ * Copyright (c) 2019. University of Applied Sciences and Arts Northwestern Switzerland FHNW.
  * All rights reserved.
  */
 
-package rocks.process.acrm.security;
+package rocks.process.security.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import rocks.process.acrm.data.domain.Agent;
-import rocks.process.acrm.security.token.TokenService;
+import rocks.process.security.service.TokenService;
+import rocks.process.security.config.TokenSecurityProperties;
+import rocks.process.security.model.TokenSecurityUser;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -24,7 +25,7 @@ import java.util.Date;
 public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
     private AuthenticationManager authenticationManager;
     private TokenService tokenService;
-    private Agent agent = null;
+    private TokenSecurityUser user = null;
 
     public TokenLoginFilter(AuthenticationManager authenticationManager, TokenService tokenService) {
         this.authenticationManager = authenticationManager;
@@ -36,15 +37,15 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
                                                 HttpServletResponse response) {
 
         try {
-            this.agent = new ObjectMapper().readValue(request.getInputStream(), Agent.class);
+            this.user = new ObjectMapper().readValue(request.getInputStream(), TokenSecurityUser.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         return authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        agent.getEmail(),
-                        agent.getPassword())
+                        user.getEmail(),
+                        user.getPassword())
         );
     }
 
@@ -57,22 +58,22 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
         Date date = null;
         Cookie cookie = null;
 
-        if(Boolean.parseBoolean(this.agent.getRemember())) {
-            date = new Date(System.currentTimeMillis() + SecurityConstants.REMEMBER_EXPIRATION_TIME);
+        if(Boolean.parseBoolean(this.user.getRemember())) {
+            date = new Date(System.currentTimeMillis() + TokenSecurityProperties.REMEMBER_EXPIRATION_TIME);
         }else{
-            date = new Date(System.currentTimeMillis() + SecurityConstants.SESSION_EXPIRATION_TIME);
+            date = new Date(System.currentTimeMillis() + TokenSecurityProperties.SESSION_EXPIRATION_TIME);
         }
-        String cookieToken = this.tokenService.issueToken(this.agent.getEmail(), SecurityConstants.COOKIE_TYPE, date);
-        cookie = new Cookie(SecurityConstants.COOKIE_NAME, cookieToken);
+        String cookieToken = this.tokenService.issueToken(this.user.getEmail(), TokenSecurityProperties.COOKIE_TYPE, date);
+        cookie = new Cookie(TokenSecurityProperties.COOKIE_NAME, cookieToken);
         cookie.setHttpOnly(true);
         cookie.setPath("/");
-        if(Boolean.parseBoolean(this.agent.getRemember())) {
-            cookie.setMaxAge(Math.toIntExact(SecurityConstants.REMEMBER_EXPIRATION_TIME /1000));
+        if(Boolean.parseBoolean(this.user.getRemember())) {
+            cookie.setMaxAge(Math.toIntExact(TokenSecurityProperties.REMEMBER_EXPIRATION_TIME /1000));
         }
         response.addCookie(cookie);
 
-        date = new Date(System.currentTimeMillis() + SecurityConstants.BEARER_EXPIRATION_TIME);
-        String bearerToken = this.tokenService.issueToken(this.agent.getEmail(), SecurityConstants.BEARER_TYPE, date);
-        response.addHeader(SecurityConstants.HEADER_NAME, SecurityConstants.BEARER_TOKEN_PREFIX + bearerToken);
+        date = new Date(System.currentTimeMillis() + TokenSecurityProperties.BEARER_EXPIRATION_TIME);
+        String bearerToken = this.tokenService.issueToken(this.user.getEmail(), TokenSecurityProperties.BEARER_TYPE, date);
+        response.addHeader(TokenSecurityProperties.HEADER_NAME, TokenSecurityProperties.BEARER_TOKEN_PREFIX + bearerToken);
     }
 }

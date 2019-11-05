@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018. University of Applied Sciences and Arts Northwestern Switzerland FHNW.
+ * Copyright (c) 2019. University of Applied Sciences and Arts Northwestern Switzerland FHNW.
  * All rights reserved.
  */
 
@@ -15,15 +15,16 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import rocks.process.acrm.security.CSRFRequestMatcher;
-import rocks.process.acrm.security.TokenAuthenticationFilter;
-import rocks.process.acrm.security.TokenLoginFilter;
-import rocks.process.acrm.security.TokenLogoutHandler;
-import rocks.process.acrm.security.token.TokenService;
-import rocks.process.acrm.security.user.UserDetailsServiceImpl;
-
+import rocks.process.acrm.business.service.UserDetailsServiceImpl;
+import rocks.process.security.config.EnableTokenSecurity;
+import rocks.process.security.service.TokenService;
+import rocks.process.security.web.CSRFRequestMatcher;
+import rocks.process.security.web.TokenAuthenticationFilter;
+import rocks.process.security.web.TokenLoginFilter;
+import rocks.process.security.web.TokenLogoutHandler;
 
 @EnableWebSecurity
+@EnableTokenSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -57,5 +58,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
-
 }

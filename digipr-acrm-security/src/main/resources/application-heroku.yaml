@@ -12,5 +12,6 @@ spring:
     hibernate:
       ddl-auto: update
 
-token:
-  secret: ${TOKEN_SECRET}
+security:
+  token:
+    secret: ${TOKEN_SECRET}

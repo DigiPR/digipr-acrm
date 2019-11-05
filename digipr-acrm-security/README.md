@@ -10,7 +10,7 @@ This example illustrates how Spring Security can be used to implement a JWT-base
 - [Initial Web Security Configuration](#initial-web-security-configuration)
 - [Service Layer / API](#service-layer--api)
 - [User Registration](#user-registration)
-- [User Authentication Phases](#user-authentication-phases)
+- [Token-based User Authentication](#token-based-user-authentication)
   - [User Login](#user-login)
   - [User Authentication](#user-authentication)
   - [User Logout](#user-logout)
@@ -23,7 +23,7 @@ This example illustrates how Spring Security can be used to implement a JWT-base
 
 ## Application Bootstrapping
 
-Please use the Spring Initializr to bootstrap the application with [this shared configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.2.0.RELEASE&packaging=jar&jvmVersion=1.8&groupId=rocks.process.acrm&artifactId=digipr-acrm-security&name=digipr-acrm-security&description=demo%20project%20for%20spring%20boot&packageName=rocks.process.acrm&dependencies=data-jpa,web,security,h2,postgresql).
+Please use the Spring Initializr to bootstrap the application with [this shared configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.2.0.RELEASE&packaging=jar&jvmVersion=1.8&groupId=rocks.process.acrm&artifactId=digipr-acrm-security&name=digipr-acrm-security&description=demo%20project%20for%20spring%20boot&packageName=rocks.process.acrm&dependencies=data-jpa,web,security,h2,postgresql,configuration-processor).
 
 Then generate and import the project into your favourite IDE.
 
@@ -61,8 +61,9 @@ By making the `dev` profile active, you are now able to place development specif
 Finally, you can set the token secret to the `src/main/java/resources/application-dev.yml` file as follows:
 
 ```yml
-token:
-  secret: secret
+security:
+  token:
+    secret: secret
 ```
 
 ## Password Encoding and Demo User
@@ -191,16 +192,17 @@ curl --request POST \
   --data '{\n    "name": "Admin",\n    "email": "admin@example.com",\n    "password": "password"\n}'
 ```
 
-## User Authentication Phases
+## Token-based User Authentication
 
 The use authentication has been implemented using JSON Web Tokens (JWT). It has been implemented using the [Java JWT (jjwt)](https://github.com/jwtk/jjwt) library and its corresponding guidelines.
 
-The verification and issuing procedures are implemented in the `rocks.process.acrm.security-token` package based on [Java JWT (jjwt)](https://github.com/jwtk/jjwt). Besides, the package contains a JPA-based repository for making tokens invalid.
+The verification and issuing procedures are implemented in the `rocks.process.security` package based on [Java JWT (jjwt)](https://github.com/jwtk/jjwt). Besides, the package contains a JPA-based repository for making tokens invalid. To enable the token security implementation use the `@EnableTokenSecurity` annotation.
 
 ### User Login
 
 ```Java
 @EnableWebSecurity
+@EnableTokenSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -239,6 +241,7 @@ curl --request POST \
 
 ```Java
 @EnableWebSecurity
+@EnableTokenSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     // ...
@@ -291,6 +294,7 @@ curl --request HEAD \
 
 ```Java
 @EnableWebSecurity
+@EnableTokenSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     // ...
@@ -321,6 +325,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 ```Java
 @EnableWebSecurity
+@EnableTokenSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     // ...
@@ -370,6 +375,7 @@ public class Customer {
 
 ```Java
 @EnableWebSecurity
+@EnableTokenSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     // ...

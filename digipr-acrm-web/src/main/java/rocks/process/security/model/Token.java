@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 2018. University of Applied Sciences and Arts Northwestern Switzerland FHNW.
+ * Copyright (c) 2019. University of Applied Sciences and Arts Northwestern Switzerland FHNW.
  * All rights reserved.
  */
 
-package rocks.process.acrm.security.token;
+package rocks.process.security.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
