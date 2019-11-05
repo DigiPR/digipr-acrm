@@ -1,0 +1,3 @@
+security:
+  token:
+    secret: secret

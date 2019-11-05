@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix="security.token")
 public class TokenSecurityProperties {
-    private static String SECRET = null;
+    private static String SECRET = "";
     public static String COOKIE_TYPE = "cookie";
     public static String BEARER_TYPE = "bearer";
     public static long REMEMBER_EXPIRATION_TIME =  864_000_000; // 10 days
