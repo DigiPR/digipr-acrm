@@ -9,3 +9,5 @@ spring:
     url: jdbc:h2:file:./data/database
     username: sa
     password: sa
+  jpa:
+    open-in-view: false
