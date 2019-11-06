@@ -1,0 +1,6 @@
+{
+  "name": "acrm",
+  "description": "Minimal Agency Customer Relationship Management Demo API",
+  "website": "https://andreasmartin.ch",
+  "addons": [ "heroku-postgresql" ]
+}
