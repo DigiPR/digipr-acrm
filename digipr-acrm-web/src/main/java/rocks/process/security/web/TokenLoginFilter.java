@@ -14,7 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
 import rocks.process.security.config.TokenSecurityProperties;
-import rocks.process.security.model.TokenSecurityUser;
+import rocks.process.security.model.TokenUser;
 import rocks.process.security.service.TokenService;
 
 import javax.servlet.FilterChain;
@@ -28,7 +28,7 @@ import java.util.Date;
 @Component
 public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
     private TokenService tokenService;
-    private TokenSecurityUser user = null;
+    private TokenUser user = null;
 
     @Autowired
     public TokenLoginFilter(@Lazy AuthenticationManager authenticationManager, TokenService tokenService) {
@@ -41,7 +41,7 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
                                                 HttpServletResponse response) {
 
         try {
-            this.user = new ObjectMapper().readValue(request.getInputStream(), TokenSecurityUser.class);
+            this.user = new ObjectMapper().readValue(request.getInputStream(), TokenUser.class);
         } catch (IOException e) {
             e.printStackTrace();
         }

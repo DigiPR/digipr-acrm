@@ -11,12 +11,12 @@ import org.springframework.security.core.userdetails.User;
 
 import static java.util.Collections.emptyList;
 
-public class TokenSecurityUser extends User {
+public class TokenUser extends User {
     private String email;
     private String remember;
 
     @JsonCreator
-    public TokenSecurityUser(@JsonProperty(value = "email", required = true) String email, @JsonProperty(value = "password", required = true) String password, @JsonProperty(value = "remember", required = true) String remember){
+    public TokenUser(@JsonProperty(value = "email", required = true) String email, @JsonProperty(value = "password", required = true) String password, @JsonProperty(value = "remember", required = true) String remember){
         super(email, password, emptyList());
         this.email = email;
         this.remember = remember;
