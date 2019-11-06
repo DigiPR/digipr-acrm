@@ -9,9 +9,11 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
+import rocks.process.security.config.TokenSecurityProperties;
 import rocks.process.security.model.Token;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -26,12 +28,11 @@ public class TokenService {
     private static final SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
     private Key signingKey;
 
-    private TokenService() { }
-
-    public TokenService(JpaRepository<Token, String> tokenBlacklistRepository, UserDetailsService userDetailsServiceimpl, String secret) {
+    @Autowired
+    public TokenService(JpaRepository<Token, String> tokenBlacklistRepository, UserDetailsService userDetailsServiceImpl, TokenSecurityProperties tokenSecurityProperties) {
         this.tokenBlacklistRepository = tokenBlacklistRepository;
-        this.userDetailsService = userDetailsServiceimpl;
-        this.signingKey = new SecretKeySpec(secret.getBytes(), SIGNATURE_ALGORITHM.getJcaName());
+        this.userDetailsService = userDetailsServiceImpl;
+        this.signingKey = new SecretKeySpec(tokenSecurityProperties.getSecret().getBytes(), SIGNATURE_ALGORITHM.getJcaName());
     }
 
     public String issueToken(String subject, String type, Date expirationTime){
