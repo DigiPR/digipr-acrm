@@ -8,41 +8,34 @@ package rocks.process.security.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import rocks.process.security.model.Token;
-import rocks.process.security.service.TokenService;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
 public class TokenSecurityConfiguration {
-    @Autowired
-    private UserDetailsService userDetailsServiceImpl;
-    @Autowired
-    private TokenSecurityProperties tokenSecurityProperties;
-    @Autowired
-    DataSource dataSource;
-    @Autowired
-    JpaVendorAdapter vendorAdapter;
-    @Autowired
-    private Environment env;
+    private DataSource dataSource;
+    private JpaVendorAdapter vendorAdapter;
+    private EntityManagerFactory entityManagerFactory;
 
-    @Bean
-    public TokenService tokenService() {
-        return new TokenService(tokenBlacklistRepository(), userDetailsServiceImpl, tokenSecurityProperties.getSecret());
+    @Autowired
+    public TokenSecurityConfiguration(DataSource dataSource, JpaVendorAdapter vendorAdapter, EntityManagerFactory entityManagerFactory) {
+        this.dataSource = dataSource;
+        this.vendorAdapter = vendorAdapter;
+        this.entityManagerFactory = entityManagerFactory;
     }
 
     @Bean
     public EntityManager entityManagerSecurity(){
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource);
-        entityManagerFactoryBean.setPackagesToScan("rocks.process.security");
+        entityManagerFactoryBean.setPackagesToScan("rocks.process.security.model");
         entityManagerFactoryBean.setJpaVendorAdapter(vendorAdapter);
         entityManagerFactoryBean.setJpaProperties(additionalProperties());
         entityManagerFactoryBean.afterPropertiesSet();
@@ -56,7 +49,8 @@ public class TokenSecurityConfiguration {
 
     private Properties additionalProperties() {
         Properties properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("spring.jpa.hibernate.ddl-auto", "none"));
+        properties.putAll(entityManagerFactory.getProperties());
+        properties.remove("hibernate.transaction.coordinator_class"); //Spring Data issue
         return properties;
     }
 }

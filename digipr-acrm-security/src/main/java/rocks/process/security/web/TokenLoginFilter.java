@@ -6,13 +6,16 @@
 package rocks.process.security.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import rocks.process.security.service.TokenService;
+import org.springframework.stereotype.Component;
 import rocks.process.security.config.TokenSecurityProperties;
-import rocks.process.security.model.TokenSecurityUser;
+import rocks.process.security.model.TokenUser;
+import rocks.process.security.service.TokenService;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -22,13 +25,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 
+@Component
 public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
-    private AuthenticationManager authenticationManager;
     private TokenService tokenService;
-    private TokenSecurityUser user = null;
+    private TokenUser user = null;
 
-    public TokenLoginFilter(AuthenticationManager authenticationManager, TokenService tokenService) {
-        this.authenticationManager = authenticationManager;
+    @Autowired
+    public TokenLoginFilter(@Lazy AuthenticationManager authenticationManager, TokenService tokenService) {
+        super.setAuthenticationManager(authenticationManager);
         this.tokenService = tokenService;
     }
 
@@ -37,12 +41,12 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
                                                 HttpServletResponse response) {
 
         try {
-            this.user = new ObjectMapper().readValue(request.getInputStream(), TokenSecurityUser.class);
+            this.user = new ObjectMapper().readValue(request.getInputStream(), TokenUser.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return authenticationManager.authenticate(
+        return this.getAuthenticationManager().authenticate(
                 new UsernamePasswordAuthenticationToken(
                         user.getEmail(),
                         user.getPassword())

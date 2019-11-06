@@ -210,7 +210,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
-    private TokenService tokenService;
+    private TokenLoginFilter tokenLoginFilter;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -220,12 +220,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers("/", "/assets/**", "/user/**", "/login/**").permitAll()
                 .anyRequest().authenticated().and()
-                    .addFilter(new TokenLoginFilter(authenticationManager(),this.tokenService));
+                    .addFilter(tokenLoginFilter);
     }
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+    }
+
+    @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 }
 ```
@@ -246,7 +252,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     // ...
     @Autowired
-    private TokenService tokenService;
+    private TokenLoginFilter tokenLoginFilter;
+    @Autowired
+    private TokenAuthenticationFilter tokenAuthenticationFilter;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -256,8 +264,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers("/", "/assets/**", "/user/**", "/login/**").permitAll()
                 .anyRequest().authenticated().and()
-                    .addFilter(new TokenLoginFilter(authenticationManager(),this.tokenService))
-                    .addFilter(new TokenAuthenticationFilter(authenticationManager(), this.tokenService));
+                    .addFilter(tokenLoginFilter)
+                    .addFilter(tokenAuthenticationFilter);
     }
 
     // ...
@@ -299,7 +307,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     // ...
     @Autowired
-    private TokenService tokenService;
+    private TokenLoginFilter tokenLoginFilter;
+    @Autowired
+    private TokenAuthenticationFilter tokenAuthenticationFilter;
+    @Autowired
+    private TokenLogoutHandler tokenLogoutHandler;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -309,12 +321,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers("/", "/assets/**", "/user/**", "/login/**").permitAll()
                 .anyRequest().authenticated().and()
-                    .addFilter(new TokenLoginFilter(authenticationManager(),this.tokenService))
-                    .addFilter(new TokenAuthenticationFilter(authenticationManager(), this.tokenService))
+                    .addFilter(tokenLoginFilter)
+                    .addFilter(tokenAuthenticationFilter)
                 .logout()
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                     .logoutSuccessUrl("/")
-                    .addLogoutHandler(new TokenLogoutHandler(this.tokenService));
+                    .addLogoutHandler(tokenLogoutHandler);
     }
 
     // ...
@@ -330,24 +342,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     // ...
     @Autowired
-    private TokenService tokenService;
+    private TokenLoginFilter tokenLoginFilter;
+    @Autowired
+    private TokenAuthenticationFilter tokenAuthenticationFilter;
+    @Autowired
+    private TokenLogoutHandler tokenLogoutHandler;
+    @Autowired
+    private CSRFRequestMatcher csrfRequestMatcher;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER).and()
-             .csrf()
-                .requireCsrfProtectionMatcher(new CSRFRequestMatcher())
+            .csrf()
+                .requireCsrfProtectionMatcher(csrfRequestMatcher)
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
             .authorizeRequests()
                 .antMatchers("/", "/assets/**", "/user/**", "/login/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/logout").permitAll()
                 .anyRequest().authenticated().and()
-                    .addFilter(new TokenLoginFilter(authenticationManager(),this.tokenService))
-                    .addFilter(new TokenAuthenticationFilter(authenticationManager(), this.tokenService))
-                .logout()
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                    .logoutSuccessUrl("/")
-                    .addLogoutHandler(new TokenLogoutHandler(this.tokenService));
+                    .addFilter(tokenLoginFilter)
+                    .addFilter(tokenAuthenticationFilter)
+            .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/")
+                .addLogoutHandler(tokenLogoutHandler);
     }
 
     // ...
@@ -380,7 +399,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     // ...
     @Autowired
-    private TokenService tokenService;
+    private TokenLoginFilter tokenLoginFilter;
+    @Autowired
+    private TokenAuthenticationFilter tokenAuthenticationFilter;
+    @Autowired
+    private TokenLogoutHandler tokenLogoutHandler;
+    @Autowired
+    private CSRFRequestMatcher csrfRequestMatcher;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -388,17 +413,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER).and()
             .requiresChannel().requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null).requiresSecure().and()
             .csrf()
-                .requireCsrfProtectionMatcher(new CSRFRequestMatcher())
+                .requireCsrfProtectionMatcher(csrfRequestMatcher)
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and()
             .authorizeRequests()
                 .antMatchers("/", "/assets/**", "/user/**", "/login/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/logout").permitAll()
                 .anyRequest().authenticated().and()
-                    .addFilter(new TokenLoginFilter(authenticationManager(),this.tokenService))
-                    .addFilter(new TokenAuthenticationFilter(authenticationManager(), this.tokenService))
-                .logout()
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                    .logoutSuccessUrl("/")
-                    .addLogoutHandler(new TokenLogoutHandler(this.tokenService));
+                    .addFilter(tokenLoginFilter)
+                    .addFilter(tokenAuthenticationFilter)
+            .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/")
+                .addLogoutHandler(tokenLogoutHandler);
     }
 
     // ...
