@@ -16,7 +16,7 @@ This example illustrates how Spring MVC can be used in combination with jQuery t
 
 ## Application Bootstrapping
 
-Please use the Spring Initializr to bootstrap the application with [this shared configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.2.0.RELEASE&packaging=jar&jvmVersion=1.8&groupId=rocks.process.acrm&artifactId=digipr-acrm-web&name=digipr-acrm-web&description=demo%20project%20for%20spring%20boot&packageName=rocks.process.acrm&dependencies=data-jpa,web,security,h2,postgresql,configuration-processor).
+Please use the Spring Initializr to bootstrap the application with [this shared configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.2.1.RELEASE&packaging=jar&jvmVersion=1.8&groupId=rocks.process.acrm&artifactId=digipr-acrm-web&name=digipr-acrm-web&description=demo%20project%20for%20spring%20boot&packageName=rocks.process.acrm&dependencies=data-jpa,web,security,h2,postgresql,configuration-processor).
 Then generate and import the project into your favourite IDE.
 
 Finally, add the following Java HTML Parser and JWT specific Maven dependencies to your `pom.xml`:
