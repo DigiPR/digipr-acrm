@@ -15,7 +15,7 @@ This example illustrates how Spring Security can be used to implement a JWT-base
   - [User Authentication](#user-authentication)
   - [User Logout](#user-logout)
 - [CSRF](#csrf)
-- [XSS and HTTPS](#xss-and-https)
+- [HTTPS](#https)
 
 ## Prerequisite and Use Case
 
@@ -36,9 +36,9 @@ Finally, add the following Java HTML Parser and JWT specific Maven dependencies 
     <version>1.12.1</version>
 </dependency>
 <dependency>
-	<groupId>io.jsonwebtoken</groupId>
-	<artifactId>jjwt</artifactId>
-	<version>0.9.1</version>
+    <groupId>io.jsonwebtoken</groupId>
+    <artifactId>jjwt</artifactId>
+    <version>0.9.1</version>
 </dependency>
 ```
 
@@ -373,24 +373,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 }
 ```
 
-## XSS and HTTPS
-
-```Java
-@Entity
-public class Customer {
-
-	@Id
-	@GeneratedValue
-	private Long id;
-	@SafeHtml
-	private String name;
-	@SafeHtml
-	private String email;
-	@SafeHtml
-	private String mobile;
-	// ...
-}
-```
+## HTTPS
 
 ```Java
 @EnableWebSecurity

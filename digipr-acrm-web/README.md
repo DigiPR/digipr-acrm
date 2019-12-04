@@ -191,14 +191,16 @@ function loadData() {
     getCustomers(function (result) {
         $("#tableData").empty();
         $.each(result, function (i, item) {
-            $("#tableData").append("<tr><td>" + item.id + "</td><td>" + item.name + "</td><td>" + item.email + "</td><td>" + item.mobile + "</td>" +
+            $("#tableData").append($("<tr>").append($("<td>").text(item.id)).append($("<td>").text(item.name)).append($("<td>").text(item.email)).append($("<td>").text(item.mobile)).append($(
                 "<td>\n" +
                 "<div class=\"btn-group btn-group-sm\" role=\"group\"><a class=\"btn btn-light\" role=\"button\" href=\"/customer/edit?id=" + item.id + "\"> <i class=\"fa fa-edit\"></i></a><button class=\"btn btn-light\" type=\"button\" data-target=\"#confirm-modal\" data-toggle=\"modal\" data-id=\"" + item.id + "\"> <i class=\"fa fa-trash\"></i></button></div>\n" +
                 "</td></tr>"
-            );
+            )));
         });
     });
 }
 ```
+
+> Don't forget that `.append()` can be dangerous when appending user input or database data. This untrusted data could contain harmful XSS-related JavaScript. Therefore untrusted data must be added using `.text()` to escape all special characters.
 
 Nevertheless, it might be advisable for readability to use a third-party library or a jQuery extension for appending HTML to the DOM.
