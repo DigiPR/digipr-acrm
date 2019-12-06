@@ -22,9 +22,6 @@ public class CSRFRequestMatcher implements RequestMatcher {
         if(this.allowedMethods.contains(request.getMethod())||request.getCookies()==null){
             return false;
         }
-        if(request.getCookies()==null){
-            return false;
-        }
         return true;
     }
 }
