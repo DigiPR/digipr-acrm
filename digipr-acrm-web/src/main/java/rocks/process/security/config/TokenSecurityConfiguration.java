@@ -8,10 +8,10 @@ package rocks.process.security.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import rocks.process.security.model.Token;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -20,31 +20,29 @@ import java.util.Properties;
 
 @Configuration
 public class TokenSecurityConfiguration {
-    private DataSource dataSource;
-    private JpaVendorAdapter vendorAdapter;
     private EntityManagerFactory entityManagerFactory;
+    private EntityManagerFactory entityManagerFactorySecurity;
 
     @Autowired
     public TokenSecurityConfiguration(DataSource dataSource, JpaVendorAdapter vendorAdapter, EntityManagerFactory entityManagerFactory) {
-        this.dataSource = dataSource;
-        this.vendorAdapter = vendorAdapter;
         this.entityManagerFactory = entityManagerFactory;
-    }
-
-    @Bean
-    public EntityManager entityManagerSecurity(){
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource);
         entityManagerFactoryBean.setPackagesToScan("rocks.process.security.model");
         entityManagerFactoryBean.setJpaVendorAdapter(vendorAdapter);
         entityManagerFactoryBean.setJpaProperties(additionalProperties());
         entityManagerFactoryBean.afterPropertiesSet();
-        return entityManagerFactoryBean.getNativeEntityManagerFactory().createEntityManager();
+        this.entityManagerFactorySecurity = entityManagerFactoryBean.getObject();
     }
 
     @Bean
-    public SimpleJpaRepository<Token, String> tokenBlacklistRepository(){
-        return new SimpleJpaRepository<>(Token.class, entityManagerSecurity());
+    public EntityManager entityManagerSecurity() {
+        return entityManagerFactorySecurity.createEntityManager();
+    }
+
+    @Bean
+    public PlatformTransactionManager transactionManager() {
+        return new JpaTransactionManager(entityManagerFactorySecurity);
     }
 
     private Properties additionalProperties() {

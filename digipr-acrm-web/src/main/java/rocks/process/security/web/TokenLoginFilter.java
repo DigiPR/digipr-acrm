@@ -6,13 +6,10 @@
 package rocks.process.security.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.stereotype.Component;
 import rocks.process.security.config.TokenSecurityProperties;
 import rocks.process.security.model.TokenUser;
 import rocks.process.security.service.TokenService;
@@ -25,13 +22,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 
-@Component
 public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
     private TokenService tokenService;
     private TokenUser user = null;
 
-    @Autowired
-    public TokenLoginFilter(@Lazy AuthenticationManager authenticationManager, TokenService tokenService) {
+    public TokenLoginFilter(AuthenticationManager authenticationManager, TokenService tokenService) {
         super.setAuthenticationManager(authenticationManager);
         this.tokenService = tokenService;
     }

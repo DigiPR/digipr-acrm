@@ -8,10 +8,6 @@ package rocks.process.security.config;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import rocks.process.security.service.TokenService;
-import rocks.process.security.web.CSRFRequestMatcher;
-import rocks.process.security.web.TokenAuthenticationFilter;
-import rocks.process.security.web.TokenLoginFilter;
-import rocks.process.security.web.TokenLogoutHandler;
 
 import java.lang.annotation.*;
 
@@ -20,11 +16,7 @@ import java.lang.annotation.*;
 @Documented
 @Import({TokenSecurityConfiguration.class,
         TokenSecurityProperties.class,
-        TokenService.class,
-        CSRFRequestMatcher.class,
-        TokenLogoutHandler.class,
-        TokenLoginFilter.class,
-        TokenAuthenticationFilter.class})
+        TokenService.class})
 @Configuration
 public @interface EnableTokenSecurity {
 }

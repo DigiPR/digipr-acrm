@@ -10,27 +10,27 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import rocks.process.security.config.TokenSecurityProperties;
 import rocks.process.security.model.Token;
 
 import javax.crypto.spec.SecretKeySpec;
+import javax.persistence.EntityManager;
 import java.security.Key;
 import java.util.Date;
 
 @Service
 public class TokenService {
 
-    private JpaRepository<Token, String> tokenBlacklistRepository;
+    private EntityManager entityManagerSecurity;
     private UserDetailsService userDetailsService;
     private static final SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
     private Key signingKey;
 
     @Autowired
-    public TokenService(JpaRepository<Token, String> tokenBlacklistRepository, UserDetailsService userDetailsServiceImpl, TokenSecurityProperties tokenSecurityProperties) {
-        this.tokenBlacklistRepository = tokenBlacklistRepository;
+    public TokenService(EntityManager entityManagerSecurity, UserDetailsService userDetailsServiceImpl, TokenSecurityProperties tokenSecurityProperties) {
+        this.entityManagerSecurity = entityManagerSecurity;
         this.userDetailsService = userDetailsServiceImpl;
         this.signingKey = new SecretKeySpec(tokenSecurityProperties.getSecret().getBytes(), SIGNATURE_ALGORITHM.getJcaName());
     }
@@ -67,11 +67,15 @@ public class TokenService {
     }
 
     private boolean isTokenBlacklisted(String token){
-        return tokenBlacklistRepository.existsById(token);
+        return entityManagerSecurity.find(Token.class, token) != null;
     }
 
     public void blacklistToken(String token){
-        tokenBlacklistRepository.save(new Token(token));
+        if(!isTokenBlacklisted(token)) {
+            entityManagerSecurity.getTransaction().begin();
+            entityManagerSecurity.persist(new Token(token));
+            entityManagerSecurity.getTransaction().commit();
+        }
     }
 
 }

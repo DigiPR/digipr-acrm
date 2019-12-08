@@ -5,10 +5,8 @@
 
 package rocks.process.security.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
-import org.springframework.stereotype.Component;
 import rocks.process.security.config.TokenSecurityProperties;
 import rocks.process.security.service.TokenService;
 
@@ -16,12 +14,10 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@Component
 public class TokenLogoutHandler implements LogoutHandler {
 
     private TokenService tokenService;
 
-    @Autowired
     public TokenLogoutHandler(TokenService tokenService) {
         super();
         this.tokenService = tokenService;
