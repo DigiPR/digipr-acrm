@@ -88,10 +88,6 @@ The `rocks.process.acrm.data.domain` package contains the following domain objec
 
 ![](images/A-CRM-Domain-Model.png)
 
-This would be the ERD representation of the domain model:
-
-![](images/A-CRM-ERD.png)
-
 ### Business Layer
 
 The `rocks.process.acrm.business.service` package contains classes of the following business services:
@@ -101,11 +97,7 @@ The `rocks.process.acrm.business.service` package contains classes of the follow
 
 ### Service Layer / API
 
-On the service layer, the API for customer management has been realised using the REST style as depicted in the following:
-
-![](images/api-endpoint-vp.png)
-
-Further can be seen using the Swagger-UI.
+On the service layer, the API for customer management has been realised using the REST style as it can be seen using the Swagger-UI.
 
 ## Deployment
 
