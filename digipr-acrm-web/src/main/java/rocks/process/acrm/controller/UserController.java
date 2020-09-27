@@ -46,8 +46,7 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public @ResponseBody
-    Agent getProfile() {
+    public @ResponseBody Agent getProfile() {
         return agentService.getCurrentAgent();
     }
 

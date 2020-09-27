@@ -5,6 +5,8 @@
 
 package rocks.process.acrm.data.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -29,6 +31,7 @@ public class Agent {
 	@javax.persistence.Transient // will not be stored in DB
 	private String remember;
 	@OneToMany(mappedBy = "agent")
+	@JsonIgnore
 	private List<Customer> customers;
 
 	public Long getId() {

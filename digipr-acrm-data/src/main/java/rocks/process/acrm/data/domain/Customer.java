@@ -1,6 +1,6 @@
 package rocks.process.acrm.data.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +21,7 @@ public class Customer {
 	private String email;
 	private String mobile;
 	@ManyToOne
-	@JsonBackReference
+	@JsonIgnore
 	private Agent agent;
 
 	public Long getId() {
