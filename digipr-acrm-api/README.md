@@ -27,7 +27,7 @@ This exemplary application is relying on [Spring Boot](https://projects.spring.i
 - [H2 Database Engine](https://www.h2database.com)
 - [PostgreSQL](https://www.postgresql.org)
 
-Please use the Spring Initializr to bootstrap the application with [this shared configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.2.1.RELEASE&packaging=jar&jvmVersion=1.8&groupId=rocks.process.acrm&artifactId=digipr-acrm-api&name=digipr-acrm-api-doc&description=demo%20project%20for%20spring%20boot&packageName=rocks.process.acrm&dependencies=data-jpa,web,h2,postgresql).
+Please use the Spring Initializr to bootstrap the application with [this shared configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.3.4.RELEASE&packaging=jar&jvmVersion=1.8&groupId=rocks.process.acrm&artifactId=digipr-acrm-api&name=digipr-acrm-api-doc&description=demo%20project%20for%20spring%20boot&packageName=rocks.process.acrm&dependencies=data-jpa,web,h2,postgresql,validation).
 
 Then generate and import the project into your favourite IDE.
 
@@ -35,14 +35,9 @@ Finally, add the following Swagger and Swagger UI specific Maven dependencies to
 
 ```XML
 <dependency>
-  <groupId>io.springfox</groupId>
-  <artifactId>springfox-swagger2</artifactId>
-  <version>2.9.2</version>
-</dependency>
-<dependency>
-  <groupId>io.springfox</groupId>
-  <artifactId>springfox-swagger-ui</artifactId>
-  <version>2.9.2</version>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-boot-starter</artifactId>
+    <version>3.0.0</version>
 </dependency>
 ```
 
@@ -106,17 +101,16 @@ Create the `rocks.process.acrm.config` package and implement the following `Swag
 
 ```Java
 @Configuration
-@EnableSwagger2
 public class SwaggerConfig {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.any())
-                .paths(Predicates.not(PathSelectors.regex("/error.*")))
+                .paths(PathSelectors.regex("(?!/error).+"))
                 .build();
     }
 }
 ```
 
-Boot your container and access the Swagger UI using the following URL: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html).
+Boot your container and access the Swagger UI using the following URL: [http://localhost:8080/swagger-ui/](http://localhost:8080/swagger-ui/).

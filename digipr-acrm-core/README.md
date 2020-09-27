@@ -18,7 +18,7 @@ This exemplary application is relying on [Spring Boot](https://projects.spring.i
 - [Spring Boot](https://projects.spring.io/spring-boot)
 - [Spring Web](https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html)
 
-Please use the Spring Initializr to bootstrap the application with [this shared configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.2.1.RELEASE&packaging=jar&jvmVersion=1.8&groupId=rocks.process.acrm&artifactId=digipr-acrm-core&name=digipr-acrm-core&description=demo%20project%20for%20spring%20boot&packageName=rocks.process.acrm&dependencies=web).
+Please use the Spring Initializr to bootstrap the application with [this shared configuration](https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.3.4.RELEASE&packaging=jar&jvmVersion=1.8&groupId=rocks.process.acrm&artifactId=digipr-acrm-core&name=digipr-acrm-core&description=demo%20project%20for%20spring%20boot&packageName=rocks.process.acrm&dependencies=web).
 
 Download the ZIP-file and extract it somewhere. Then import the project into your favourite Java/Maven IDE such as IntelliJ, NetBeans or Eclipse.
 
