@@ -39,7 +39,7 @@ public class TokenService {
         return Jwts.builder()
                 .setSubject(subject)
                 .setExpiration(expirationTime)
-                .signWith(SIGNATURE_ALGORITHM, signingKey)
+                .signWith(signingKey, SIGNATURE_ALGORITHM)
                 .setHeaderParam("typ", type)
                 .compact();
     }
@@ -49,8 +49,9 @@ public class TokenService {
             return null;
         }
 
-        Jws<Claims> claims = Jwts.parser()
+        Jws<Claims> claims = Jwts.parserBuilder()
                 .setSigningKey(signingKey)
+                .build()
                 .parseClaimsJws(token);
 
         if(claims!=null){
