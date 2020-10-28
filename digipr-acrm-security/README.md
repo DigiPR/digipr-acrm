@@ -75,8 +75,10 @@ Finally, you can set the token secret to the `src/main/java/resources/applicatio
 ```yml
 security:
   token:
-    secret: secret
+    secret: mysecret-which-needs-to-be-of-at-least-512bit-long!please-change
 ```
+
+> Since HS512 is used here for the signature, the secret key must be of at least 512bit (that’s 64 characters, totaling 64 bytes, in UTF-8).
 
 ## Password Encoding and Demo User
 
