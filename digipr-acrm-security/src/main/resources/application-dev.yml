@@ -1,0 +1,12 @@
+security:
+  token:
+    secret: mysecret-which-needs-to-be-of-at-least-512bit-long!please-change
+
+#spring:
+#  datasource:
+#    url: jdbc:h2:file:./data/database
+#    username: sa
+#    password: sa
+
+server:
+  port: 8080
