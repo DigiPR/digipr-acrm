@@ -6,11 +6,9 @@
 package rocks.process.acrm.data.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
@@ -26,9 +24,9 @@ public class Agent {
 	@Email(message = "Please provide a valid e-mail.")
 	@NotEmpty(message = "Please provide an e-mail.")
 	private String email;
-	@org.springframework.data.annotation.Transient //will not be serialized
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // only create object property from JSON
 	private String password;
-	@javax.persistence.Transient // will not be stored in DB
+	@Transient // will not be stored in DB
 	private String remember;
 	@OneToMany(mappedBy = "agent")
 	@JsonIgnore
