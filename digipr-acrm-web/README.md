@@ -25,7 +25,7 @@ Besides, add the following Java HTML Parser and JWT specific Maven dependencies 
 <dependency>
     <groupId>org.jsoup</groupId>
     <artifactId>jsoup</artifactId>
-    <version>1.13.1</version>
+    <version>1.14.2</version>
 </dependency>
 <dependency>
     <groupId>io.jsonwebtoken</groupId>
